@@ -13,28 +13,29 @@ music_dir = pod_hist["music_dir"]
 pods = pod_hist["pods"]
 
 #see whats available, or if we a part way through one allready
-
-#whats there
+#whats there?
 podcasts = Dir.entries(pod_dir)
 podcasts = podcasts.select{|nm| nm != "." and nm != ".." }
 
-#finished it allready?
+#have we finished it allready?
 doneCasts = pods.select{|pod| pod["done"]}.map{|pod| pod["name"]}
 podcasts = podcasts.select{|name| not doneCasts.include?(name) }
 podcasts = podcasts.sort
 
-#in one allready
+#are we in one allready?
 pods = pods.select{|pod| pod["done"] == false }
 pods = pods.sort{|a, b| a["name"] <=> b["name"]}
 
 if pods.length != 0
+  #we are still working on a podcast, use that one
   pod = {name: pods[0]["name"], last_time: pods[0]["last_time"], done: false}
   pods.delete(pods[0]) #will put back later
 else
+  #make a new one (that we have not completed yet)
   pod = {name: podcasts[0], last_time: 0, done: false}
 end
 
-#detect time provided
+#detect time provided by user
 args = ARGV
 hours = 0
 minutes = 0
@@ -50,8 +51,9 @@ end
 #provide user feedback and put the computer to bed
 p "sleeping for #{hours} hours and #{minutes} minutes!"
 p "waking up to #{pod[:name]}, and then music"
-`sleep 8` #so we see output
+`sleep 8` #seconds, so we see output
 begin
+  #put to sleep, we dont care how it wakes so we rescue
   `sudo rtcwake -m mem -s #{hours * 60 * 60 + minutes * 60}`
 rescue Exception => e
   nil
@@ -69,7 +71,7 @@ begin
   p "podcast completed!"
   pod[:done] = true
   begin
-    #make sure they are up (random repeat)
+    #podcast played out, make sure they are up (random repeat)
     `cvlc -Z -R #{music_dir}`
   rescue Interrupt => e
     nil
@@ -89,6 +91,8 @@ pods << pod
 #format into podlarm.json file
 pod_hist["pods"] = pods
 pod_hist = pod_hist.to_json
+
+#delete previous and write new information
 File.delete("podlarm.json")
 fl = File.open('podlarm.json', 'w')
 fl.write(pod_hist)

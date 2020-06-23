@@ -1,6 +1,6 @@
 #  Basic ruby podcast alarm application.
 #  will:
-#    1. put computer to bed for a specified time
+#    1. put computer to sleep for a specified time
 #    2. wake up and play a podcast.
 #      - If podcast turned off, it will keep time.
 #      - If podcast plays out, it will play music to ensure awake

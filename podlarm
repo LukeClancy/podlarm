@@ -1,0 +1,95 @@
+#!/usr/bin/env ruby
+require 'json'
+
+#read previous data
+fl = File.open('podlarm.json', 'r')
+a = fl.read
+fl.close
+
+#interpret that data
+pod_hist = JSON.parse(a)
+pod_dir = pod_hist["pod_dir"]
+music_dir = pod_hist["music_dir"]
+pods = pod_hist["pods"]
+
+#see whats available, or if we a part way through one allready
+
+#whats there
+podcasts = Dir.entries(pod_dir)
+podcasts = podcasts.select{|nm| nm != "." and nm != ".." }
+
+#finished it allready?
+doneCasts = pods.select{|pod| pod["done"]}.map{|pod| pod["name"]}
+podcasts = podcasts.select{|name| not doneCasts.include?(name) }
+podcasts = podcasts.sort
+
+#in one allready
+pods = pods.select{|pod| pod["done"] == false }
+pods = pods.sort{|a, b| a["name"] <=> b["name"]}
+
+if pods.length != 0
+  pod = {name: pods[0]["name"], last_time: pods[0]["last_time"], done: false}
+  pods.delete(pods[0]) #will put back later
+else
+  pod = {name: podcasts[0], last_time: 0, done: false}
+end
+
+#detect time provided
+args = ARGV
+hours = 0
+minutes = 0
+if args.length == 1
+  hours=args[0].to_i
+elsif args.length == 2
+  hours=args[0].to_i
+  minutes=args[1].to_i
+else
+  hours=8
+end
+
+#provide user feedback and put the computer to bed
+p "sleeping for #{hours} hours and #{minutes} minutes!"
+p "waking up to #{pod[:name]}, and then music"
+`sleep 8` #so we see output
+begin
+  `sudo rtcwake -m mem -s #{hours * 60 * 60 + minutes * 60}`
+rescue Exception => e
+  nil
+end
+
+#up the volume
+`amixer -D pulse sset Master unmute && amixer -D pulse sset Master 100% &&`
+
+#play the music, detect if interuppted or completed
+time_start = Time.now
+p "#{pod_dir}/#{pod[:name]} is starting to play at #{pod[:last_time]}"
+begin
+ #exit after finish and start at time
+ `cvlc #{pod_dir}/#{pod[:name]} --play-and-exit --start-time #{pod[:last_time]}`
+  p "podcast completed!"
+  pod[:done] = true
+  begin
+    #make sure they are up (random repeat)
+    `cvlc -Z -R #{music_dir}`
+  rescue Interrupt => e
+    nil
+  end
+rescue Interrupt => e
+  #If it was interuppted (by someone waking and turning it off) then there is still more podcast to
+  #go. So save the spot for the next morning
+  p "saving your spot!"
+  pod[:done] = false
+end
+
+#save results
+time_taken = Time.now - time_start
+pod[:last_time] = pod[:last_time] + time_taken - 1
+pods << pod
+
+#format into podlarm.json file
+pod_hist["pods"] = pods
+pod_hist = pod_hist.to_json
+File.delete("podlarm.json")
+fl = File.open('podlarm.json', 'w')
+fl.write(pod_hist)
+fl.close()

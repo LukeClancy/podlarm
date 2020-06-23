@@ -1,0 +1,20 @@
+#  Basic ruby podcast alarm application.
+#  will:
+#    1. put computer to bed for a specified time
+#    2. wake up and play a podcast.
+#      - If podcast turned off, it will keep time.
+#      - If podcast plays out, it will play music
+
+#  requires vlc		=> cvlc
+#  requires ubuntu 	=> amixer, rtcwake
+#  requires folder with podcasts in it (settable under podlarm.json)
+#  requires backup folder with music in it (settable under podlarm.json)
+#  requires custom setup in podlarm.json
+
+#  setup:
+#  podcasts downloaded in a specific folder, this is doable with vlc and earwolf rss
+#  music in another folder that will play after podcast (for instance if podcast was almost over)
+#  folders customset in podlarm.json
+
+#  call the utility like "podlarm 8 15" for 8 hours 15 minutes of sleep
+#  note podcasts will be played in ascii alphabetical order

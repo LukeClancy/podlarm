@@ -3,7 +3,7 @@
 #    1. put computer to bed for a specified time
 #    2. wake up and play a podcast.
 #      - If podcast turned off, it will keep time.
-#      - If podcast plays out, it will play music
+#      - If podcast plays out, it will play music to ensure awake
 
 #  requires vlc		=> cvlc
 #  requires ubuntu 	=> amixer, rtcwake

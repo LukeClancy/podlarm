@@ -2,7 +2,7 @@
 #  will:
 #    1. put computer to sleep for a specified time
 #    2. wake up and play a podcast.
-#      - If user turns off podcast, it will keep time.
+#      - If user turns off podcast, it will keep time of podcast for next use
 #      - If podcast plays out, it will play music to ensure user awake
 
 #  requires vlc		=> cvlc

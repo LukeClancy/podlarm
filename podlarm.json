@@ -1,0 +1,6 @@
+{
+  "note": "please set the morning podcast directory and the backup music directory here",
+  "pods":[],
+  "pod_dir":"/home/luke/Music/morning_pod",
+  "music_dir":"/home/luke/Music/morning"
+}

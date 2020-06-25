@@ -54,13 +54,18 @@ p "waking up to #{pod[:name]}, and then music"
 `sleep 8` #seconds, so we see output
 begin
   #put to sleep, we dont care how it wakes so we rescue
-  `sudo rtcwake -m mem -s #{hours * 60 * 60 + minutes * 60}`
+  `sudo rtcwake -v -m mem -s #{hours * 60 * 60 + minutes * 60}`
 rescue Exception => e
-  nil
+  puts "EXCEPTION INFORMATION"
+  puts e.class.to_s
+  puts e.message.to_s
+  puts e.backtrace.to_s
+  puts "CONTINUING"
 end
+puts "done with the rtcwake"
 
 #up the volume
-`amixer -D pulse sset Master unmute && amixer -D pulse sset Master 100% &&`
+`amixer -D pulse sset Master unmute && amixer -D pulse sset Master 100%`
 
 #play the music, detect if interuppted or completed
 time_start = Time.now

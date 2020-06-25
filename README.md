@@ -5,10 +5,14 @@ will:
     - If user turns off podcast, it will keep time of podcast for next use
     - If podcast plays out, it will play music to ensure user awake, and mark podcast completed
 
-requires vlc		=> cvlc
-requires ubuntu 	=> amixer, rtcwake
+requires vlc => cvlc
+
+requires ubuntu => amixer, rtcwake
+
 requires folder with podcasts in it (settable under podlarm.json)
+
 requires backup folder with music in it (settable under podlarm.json)
+
 requires custom setup in podlarm.json
 
 setup:

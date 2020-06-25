@@ -9,6 +9,8 @@ requires vlc => cvlc
 
 requires ubuntu => amixer, rtcwake
 
+requires ruby
+
 requires folder with podcasts in it (settable under podlarm.json)
 
 requires backup folder with music in it (settable under podlarm.json)
@@ -16,9 +18,11 @@ requires backup folder with music in it (settable under podlarm.json)
 requires custom setup in podlarm.json
 
 setup:
-podcasts downloaded in a specific folder, I highly recomend vlc and earwolf rss for downloading podcasts,
+
+  -podcasts downloaded in a specific folder, I highly recomend vlc and earwolf rss for downloading podcasts,
    but any vlc media file works aslong as it in the right direcory.
-music in another folder that will play after podcast (for instance if podcast was almost over and it plays out)
+   
+  -music in another folder that will play after podcast (for instance if podcast was almost over and it plays out)
    folders customset in podlarm.json
 
 Optional download steps for podcasts:

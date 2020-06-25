@@ -21,7 +21,7 @@ Optional download steps for podcasts:
    - Podcast downloading with vlc: https://www.vlchelp.com/how-subscribe-podcasts-vlc-media-player/
    - obtaining Earwolf rss links for the above vlc podcast subscription
      1. go to podcast page (https://www.earwolf.com/show/hello-from-the-magic-tavern/)
-     2. right click rss button, looks like the screenshot provided in the source code
+     2. right click rss button, looks like https://github.com/LukeClancy/podlarm/blob/master/Screenshot%20from%202020-06-25%2015-20-18.jpg
      3. copy link location, and use that in vlc
 
 call the utility like "podlarm 8 15" for 8 hours 15 minutes of sleep

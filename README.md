@@ -1,5 +1,4 @@
-Basic ruby podcast alarm application.
-will:
+Basic ruby podcast alarm application. will:
   1. put computer to sleep for a specified time
   2. wake up and play a podcast:
      - If user turns off podcast, it will keep time of podcast for next use

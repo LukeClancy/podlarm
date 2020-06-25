@@ -12,7 +12,7 @@ pod_dir = pod_hist["pod_dir"]
 music_dir = pod_hist["music_dir"]
 pods = pod_hist["pods"]
 
-#see whats available, or if we a part way through one allready
+#see whats available, or if we are part way through one allready
 #whats there?
 podcasts = Dir.entries(pod_dir)
 podcasts = podcasts.select{|nm| nm != "." and nm != ".." }
@@ -23,13 +23,13 @@ podcasts = podcasts.select{|name| not doneCasts.include?(name) }
 podcasts = podcasts.sort
 
 #are we in one allready?
-pods = pods.select{|pod| pod["done"] == false }
-pods = pods.sort{|a, b| a["name"] <=> b["name"]}
+queuePods = pods.select{|pod| pod["done"] == false }
+queuePods = queuePods[0]["name"].sort{|a, b| a["name"] <=> b["name"]}
 
-if pods.length != 0
+if queuePods.length != 0
   #we are still working on a podcast, use that one
-  pod = {name: pods[0]["name"], last_time: pods[0]["last_time"], done: false}
-  pods.delete(pods[0]) #will put back later
+  pod = {name: queuePods[0]["name"], last_time: queuePods[0]["last_time"], done: false}
+  pods.delete(pods.select{|nm| nm == queuePods[0]["name"]}) #will put back later
 else
   #make a new one (that we have not completed yet)
   pod = {name: podcasts[0], last_time: 0, done: false}

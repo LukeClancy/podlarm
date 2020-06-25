@@ -26,4 +26,6 @@ Optional download steps for podcasts:
      2. right click rss button, looks like https://github.com/LukeClancy/podlarm/blob/master/Screenshot%20from%202020-06-25%2015-20-18.jpg
      3. copy link location, and use that in vlc
 
-call the utility like "podlarm 8 15" for 8 hours 15 minutes of sleep. note podcasts will be played in ascii alphabetical order. I wrote this for myself to improve my morning by waking up to some totally-not-real people in a "magic" tavern (so they say...) and other podcasts
+call the utility like "podlarm 8 15" for 8 hours 15 minutes of sleep. note podcasts will be played in ascii alphabetical order. I wrote this for myself to improve my morning by waking up to some totally-not-real people in a "magic" tavern (so they say...) and other podcasts.
+
+If you find a way to listen to daily podcasts (for instance news) as they come out through the podlarm script, tell me how you did it by editing this README! I will find that useful in the future. I dont think vlc has a feature to automatically download podcasts.

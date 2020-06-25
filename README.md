@@ -1,4 +1,4 @@
-Basic ruby podcast alarm application. Very new. Still testing. will:
+Basic ruby podcast alarm script. Very new. Still testing. will:
   1. put computer to sleep for a specified time
   2. wake up and play a podcast:
      - If user turns off podcast, it will keep time of podcast for next use
